@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.128-alpha">
+    <PropertyGroup>
+        <StartupCommand>npm start</StartupCommand>
+        <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
+        <ShouldRunBuildScript>false</ShouldRunBuildScript>
+        <BuildCommand>ng build -c development</BuildCommand>
+        <ProductionBuildCommand>ng build -c production</ProductionBuildCommand>
+        <BuildOutputFolder>dist</BuildOutputFolder>
+        <BuildCommandWorkingDirectory>/Users/hyrule_dl/source/local/ChinookStore/src/AngularClient</BuildCommandWorkingDirectory>
+    </PropertyGroup>
+</Project>

@@ -1,1 +1,1 @@
-# chinook-store
+# Chinook Store Demo App

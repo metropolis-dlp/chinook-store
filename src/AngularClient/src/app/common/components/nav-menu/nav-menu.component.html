@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button matTooltip="Menu" aria-label="Menu" (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Chinook Store</span>
+</mat-toolbar>
+
+<mat-sidenav-container autosize>
+
+  <mat-sidenav #sidenav mode="side">
+    <mat-nav-list>
+      <a routerLink="/" mat-list-item>
+        <div class="d-flex flex-items-center flex-gap">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </div>
+      </a>
+      <a routerLink="/user" mat-list-item>
+        <div class="d-flex flex-items-center flex-gap">
+          <mat-icon>person</mat-icon>
+          <span>Users</span>
+        </div>
+      </a>
+      <a routerLink="/employee" mat-list-item>
+        <div class="d-flex flex-items-center flex-gap">
+        <mat-icon>group</mat-icon>
+        <span>Employees</span>
+        </div>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <ng-content></ng-content>
+
+</mat-sidenav-container>
