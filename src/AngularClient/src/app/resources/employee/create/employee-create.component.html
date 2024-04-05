@@ -1,0 +1,20 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Hire Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="hireDate">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Reports to</mat-label>
+    <combo-box formControlName="reportsTo" [options]="employees"></combo-box>
+  </mat-form-field>
+
+  <user-create></user-create>
+</form>

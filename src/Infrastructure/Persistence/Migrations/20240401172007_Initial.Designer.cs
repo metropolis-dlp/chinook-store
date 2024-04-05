@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChinookStore.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240117235359_Initial")]
+    [Migration("20240401172007_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -390,17 +390,17 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                                 .HasMaxLength(40)
                                 .HasColumnType("TEXT");
 
-                            b1.Property<string>("Line")
-                                .IsRequired()
-                                .HasMaxLength(40)
-                                .HasColumnType("TEXT");
-
                             b1.Property<string>("PostalCode")
                                 .IsRequired()
                                 .HasMaxLength(10)
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("State")
+                                .IsRequired()
+                                .HasMaxLength(40)
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Street")
                                 .IsRequired()
                                 .HasMaxLength(40)
                                 .HasColumnType("TEXT");
@@ -501,17 +501,17 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                                 .HasMaxLength(40)
                                 .HasColumnType("TEXT");
 
-                            b1.Property<string>("Line")
-                                .IsRequired()
-                                .HasMaxLength(40)
-                                .HasColumnType("TEXT");
-
                             b1.Property<string>("PostalCode")
                                 .IsRequired()
                                 .HasMaxLength(10)
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("State")
+                                .IsRequired()
+                                .HasMaxLength(40)
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Street")
                                 .IsRequired()
                                 .HasMaxLength(40)
                                 .HasColumnType("TEXT");

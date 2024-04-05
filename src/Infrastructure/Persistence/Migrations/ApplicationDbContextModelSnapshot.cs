@@ -387,17 +387,17 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                                 .HasMaxLength(40)
                                 .HasColumnType("TEXT");
 
-                            b1.Property<string>("Line")
-                                .IsRequired()
-                                .HasMaxLength(40)
-                                .HasColumnType("TEXT");
-
                             b1.Property<string>("PostalCode")
                                 .IsRequired()
                                 .HasMaxLength(10)
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("State")
+                                .IsRequired()
+                                .HasMaxLength(40)
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Street")
                                 .IsRequired()
                                 .HasMaxLength(40)
                                 .HasColumnType("TEXT");
@@ -498,17 +498,17 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                                 .HasMaxLength(40)
                                 .HasColumnType("TEXT");
 
-                            b1.Property<string>("Line")
-                                .IsRequired()
-                                .HasMaxLength(40)
-                                .HasColumnType("TEXT");
-
                             b1.Property<string>("PostalCode")
                                 .IsRequired()
                                 .HasMaxLength(10)
                                 .HasColumnType("TEXT");
 
                             b1.Property<string>("State")
+                                .IsRequired()
+                                .HasMaxLength(40)
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Street")
                                 .IsRequired()
                                 .HasMaxLength(40)
                                 .HasColumnType("TEXT");

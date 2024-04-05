@@ -3,11 +3,11 @@ using ChinookStore.Domain.Common;
 
 namespace ChinookStore.Domain.ValueObjects;
 
-public class Address(string line, string city, string state, string country, string postalCode)
+public class Address(string street, string city, string state, string country, string postalCode)
     : ValueObject
 {
     [MaxLength(40)]
-    public string Line { get; } = line;
+    public string Street { get; } = street;
 
     [MaxLength(40)]
     public string City { get; } = city;
@@ -23,7 +23,7 @@ public class Address(string line, string city, string state, string country, str
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
-        yield return Line;
+        yield return Street;
         yield return City;
         yield return State;
         yield return Country;

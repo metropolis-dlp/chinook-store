@@ -19,7 +19,7 @@ public class UserListItemDto : IMapFrom<User>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<User, UserListItemDto>()
-            .ForMember(d => d.Address, opt => opt.MapFrom(s => s.Address.Line + ", " + s.Address.City))
+            .ForMember(d => d.Address, opt => opt.MapFrom(s => s.Address.Street + ", " + s.Address.City))
             .ForMember(d => d.Country, opt => opt.MapFrom(s => s.Address.Country));
     }
 }

@@ -13,7 +13,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.OwnsOne(u => u.Address, b =>
         {
-            b.Property(a => a.Line);
+            b.Property(a => a.Street);
             b.Property(a => a.City);
             b.Property(a => a.State);
             b.Property(a => a.Country);

@@ -49,11 +49,11 @@ public class ApplicationDbContextInitializer(
         var content = await JsonDocument.ParseAsync(resourceStream!);
 
         var mediaTypesMap = await GetMediaTypesMap();
-        var genresMap = DeserializeAndInsertEntities(content, "Genre", 
-            source => new Genre(source.Name)); 
-        var artistsMap = DeserializeAndInsertEntities(content, "Artist", 
-            source => new Artist(source.Name)); 
-        var albumsMap = DeserializeAndInsertEntities(content, "Album", 
+        var genresMap = DeserializeAndInsertEntities(content, "Genre",
+            source => new Genre(source.Name));
+        var artistsMap = DeserializeAndInsertEntities(content, "Artist",
+            source => new Artist(source.Name));
+        var albumsMap = DeserializeAndInsertEntities(content, "Album",
             source => new Album(source.Title)
             {
                 Artist = artistsMap.First(a => a.Id == source.ArtistId).Entity
@@ -65,6 +65,8 @@ public class ApplicationDbContextInitializer(
                 MediaType = mediaTypesMap.First(m => m.Id == source.MediaTypeId).MediaType,
                 Album = albumsMap.First(a => a.Id == source.AlbumId).Entity
             });
+
+        // * Employees
         var employeesMap = DeserializeAndInsertEntities(content ,"Employee",
             source => new Employee(
                 title: source.Title,
@@ -75,9 +77,19 @@ public class ApplicationDbContextInitializer(
                     source.FirstName, source.LastName,
                     new Address(source.Address, source.City, source.State, source.Country, source.PostalCode),
                     new Email(source.Email),
-                    new Phone(source.Phone)),
-                ReportsTo = null
+                    new Phone(source.Phone))
             });
+
+        foreach (var source in DeserializeElementsList(content.RootElement.GetProperty("Employee")))
+        {
+            if (source.ReportsTo is not int reportsTo) continue;
+
+            var employee = employeesMap.First(e => e.Id == source.Id).Entity;
+            var manager = employeesMap.First(e => e.Id == reportsTo).Entity;
+            employee.SetManager(manager);
+        }
+
+        // * Costumers
         var customersMap = DeserializeAndInsertEntities(content, "Customer",
             source => new Customer
             {
@@ -88,6 +100,8 @@ public class ApplicationDbContextInitializer(
                     new Phone(source.Phone)),
                 SupportRep = employeesMap.First(e => e.Item1 == source.SupportRepId).Item2
             });
+
+        // * Invoices
         var invoicesMap = DeserializeAndInsertEntities(content, "Invoice",
             source =>
             {
@@ -101,6 +115,8 @@ public class ApplicationDbContextInitializer(
                     Customer = customersMap.First(c => c.Id == source.CustomerId).Entity
                 };
             });
+
+        // * Invoice Lines
         DeserializeAndInsertEntities(content, "InvoiceLine",
             source => new InvoiceLine(source.UnitPrice, source.Quantity)
             {
@@ -202,12 +218,7 @@ public class ApplicationDbContextInitializer(
                     break;
             }
 
-            if (value == null)
-            {
-                continue;
-            }
-                    
-            result.Add(property.Name, value);
+            result.Add(property.Name, value!);
         }
 
         return result;

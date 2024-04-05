@@ -12,5 +12,10 @@ public class Employee(string title, DateOnly birthDate, DateOnly hireDate) : Dom
     public DateOnly HireDate { get; } = hireDate;
 
     public required User User { get; init; }
-    public required Employee? ReportsTo { get; init; }
+    public Employee? ReportsTo { get; protected set; }
+
+    public void SetManager(Employee manager)
+    {
+        ReportsTo = manager;
+    }
 }

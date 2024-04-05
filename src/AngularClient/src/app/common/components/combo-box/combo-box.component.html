@@ -1,0 +1,13 @@
+<div class="d-flex flex-items-center">
+  <input type="text" matInput [formControl]="control" [matAutocomplete]="auto" [placeholder]="placeholder">
+  <mat-icon matSuffix>arrow_drop_down</mat-icon>
+  <mat-autocomplete #auto="matAutocomplete"
+                    [displayWith]="getNameByIdOrName.bind(this)"
+                    (optionSelected)="optionSelected($event)"
+  >
+    <mat-option [value]="null"></mat-option>
+    @for (option of filteredOptions | async; track option) {
+      <mat-option [value]="option.id">{{ option.name }}</mat-option>
+    }
+  </mat-autocomplete>
+</div>

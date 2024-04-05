@@ -1,0 +1,36 @@
+<form [formGroup]="form" class="d-flex flex-column">
+  <div class="d-flex flex-row flex-gap">
+    <mat-form-field class="flex-grow">
+      <mat-label>Street</mat-label>
+      <input matInput formControlName="street">
+    </mat-form-field>
+
+    <mat-form-field class="flex-grow">
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city">
+    </mat-form-field>
+  </div>
+
+  <div class="d-flex flex-row flex-gap">
+    <mat-form-field class="flex-grow">
+      <mat-label>State</mat-label>
+      <input matInput formControlName="state">
+    </mat-form-field>
+
+    <mat-form-field class="flex-grow">
+      <mat-label>Postal Code</mat-label>
+      <input matInput formControlName="postalCode">
+    </mat-form-field>
+  </div>
+
+
+  <mat-form-field class="flex-items-baseline">
+    <mat-label>Country</mat-label>
+    <mat-select formControlName="country">
+      @for (country of countries; track country) {
+        <mat-option [value]="country">{{ country }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+</form>
