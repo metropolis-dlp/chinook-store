@@ -17,5 +17,4 @@ public class Track(string name, string composer, int milliseconds, long bytes,  
 
     public required Album Album { get; init; }
     public required MediaType MediaType { get; init; }
-    public required Genre Genre { get; init; }
 }

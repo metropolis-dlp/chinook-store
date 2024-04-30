@@ -10,7 +10,7 @@ namespace ChinookStore.Application.Users.Queries.GetUsersWithPagination;
 public class GetUsersWithPaginationQueryHandler(IRepository repository, IMapper mapper)
   : IRequestHandler<GetUsersWithPaginationQuery, PaginatedList<UserListItemDto>>
 {
-    public Task<PaginatedList<UserListItemDto>> Handle(GetUsersWithPaginationQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<UserListItemDto>> Handle(GetUsersWithPaginationQuery request, CancellationToken cancellationToken)
     {
         var query = repository.Query<User>();
 
@@ -34,7 +34,7 @@ public class GetUsersWithPaginationQueryHandler(IRepository repository, IMapper 
             _ => request.Asc ? query.OrderBy(u => u.Id) : query.OrderByDescending(u => u.Id)
         };
 
-        return query.PaginatedListAsync<User, UserListItemDto>(
+        return await query.PaginatedListAsync<User, UserListItemDto>(
           request.PageIndex, request.PageSize, mapper.ConfigurationProvider, cancellationToken);
     }
 }

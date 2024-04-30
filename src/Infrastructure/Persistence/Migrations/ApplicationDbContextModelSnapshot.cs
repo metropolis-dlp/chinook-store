@@ -26,6 +26,12 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                     b.Property<int>("ArtistId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("GenreId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateOnly>("ReleaseDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(300)
@@ -34,6 +40,8 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ArtistId");
+
+                    b.HasIndex("GenreId");
 
                     b.ToTable("Album");
                 });
@@ -226,9 +234,6 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("GenreId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("MediaTypeId")
                         .HasColumnType("INTEGER");
 
@@ -246,8 +251,6 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AlbumId");
-
-                    b.HasIndex("GenreId");
 
                     b.HasIndex("MediaTypeId");
 
@@ -325,7 +328,15 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ChinookStore.Domain.Entities.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Artist");
+
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("ChinookStore.Domain.Entities.Customer", b =>
@@ -462,12 +473,6 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ChinookStore.Domain.Entities.Genre", "Genre")
-                        .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ChinookStore.Domain.Enums.MediaType", "MediaType")
                         .WithMany()
                         .HasForeignKey("MediaTypeId")
@@ -475,8 +480,6 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Album");
-
-                    b.Navigation("Genre");
 
                     b.Navigation("MediaType");
                 });

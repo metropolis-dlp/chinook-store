@@ -9,5 +9,6 @@ public class AlbumConfiguration : IEntityTypeConfiguration<Album>
     public void Configure(EntityTypeBuilder<Album> builder)
     {
         builder.Property(a => a.Title);
+        builder.Property(a => a.ReleaseDate);
     }
 }

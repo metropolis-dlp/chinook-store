@@ -93,7 +93,9 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", maxLength: 300, nullable: false),
-                    ArtistId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ReleaseDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
+                    ArtistId = table.Column<int>(type: "INTEGER", nullable: false),
+                    GenreId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,6 +104,12 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                         name: "FK_Album_Artist_ArtistId",
                         column: x => x.ArtistId,
                         principalTable: "Artist",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Album_Genre_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genre",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -146,8 +154,7 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                     Bytes = table.Column<long>(type: "INTEGER", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "TEXT", nullable: false),
                     AlbumId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MediaTypeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    GenreId = table.Column<int>(type: "INTEGER", nullable: false)
+                    MediaTypeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,12 +163,6 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                         name: "FK_Track_Album_AlbumId",
                         column: x => x.AlbumId,
                         principalTable: "Album",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Track_Genre_GenreId",
-                        column: x => x.GenreId,
-                        principalTable: "Genre",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -296,6 +297,11 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                 column: "ArtistId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Album_GenreId",
+                table: "Album",
+                column: "GenreId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customer_SupportRepId",
                 table: "Customer",
                 column: "SupportRepId");
@@ -346,11 +352,6 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                 column: "AlbumId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Track_GenreId",
-                table: "Track",
-                column: "GenreId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Track_MediaTypeId",
                 table: "Track",
                 column: "MediaTypeId");
@@ -381,9 +382,6 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                 name: "Album");
 
             migrationBuilder.DropTable(
-                name: "Genre");
-
-            migrationBuilder.DropTable(
                 name: "MediaType");
 
             migrationBuilder.DropTable(
@@ -391,6 +389,9 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Artist");
+
+            migrationBuilder.DropTable(
+                name: "Genre");
 
             migrationBuilder.DropTable(
                 name: "User");

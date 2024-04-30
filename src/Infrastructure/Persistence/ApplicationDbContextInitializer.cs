@@ -54,14 +54,16 @@ public class ApplicationDbContextInitializer(
         var artistsMap = DeserializeAndInsertEntities(content, "Artist",
             source => new Artist(source.Name));
         var albumsMap = DeserializeAndInsertEntities(content, "Album",
-            source => new Album(source.Title)
+            source => new Album(
+                title: source.Title,
+                releaseDate: DateOnly.ParseExact(source.ReleaseDate, "yyyy-MM-dd", CultureInfo.InvariantCulture))
             {
+                Genre = genresMap.First(g => g.Id == source.GenreId).Entity,
                 Artist = artistsMap.First(a => a.Id == source.ArtistId).Entity
             });
         var tracksMap = DeserializeAndInsertEntities(content, "Track",
             source => new Track(source.Name, source.Composer, source.Milliseconds, source.Bytes, source.UnitPrice)
             {
-                Genre = genresMap.First(g => g.Id == source.GenreId).Entity,
                 MediaType = mediaTypesMap.First(m => m.Id == source.MediaTypeId).MediaType,
                 Album = albumsMap.First(a => a.Id == source.AlbumId).Entity
             });
