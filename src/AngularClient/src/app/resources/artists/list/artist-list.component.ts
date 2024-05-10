@@ -1,16 +1,18 @@
 import {AfterViewInit, Component, ViewChild } from '@angular/core';
 import {ArtistModel} from "../artist.model";
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {BaseComponent} from "../../../common/components/base.component";
 import {ArtistService} from "../artist.service";
-import {debounce, interval, merge, startWith, switchMap, takeUntil, tap } from 'rxjs';
+import {debounce, EMPTY, iif, interval, merge, startWith, switchMap, takeUntil, tap} from 'rxjs';
 import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDialog} from "@angular/material/dialog";
 import {ArtistCreateEditComponent} from "../create-edit/artist-create-edit.component";
+import {ConfirmDialogComponent} from "../../../common/components/confirm-dialog/confirm-dialog.component";
+import {ConfirmDialogModel} from "../../../common/components/confirm-dialog/confirm-dialog.model";
 
 @Component({
   selector: 'app-artist-list',
@@ -65,11 +67,11 @@ export class ArtistListComponent extends BaseComponent implements AfterViewInit 
 
   create() {
     this.dialog.open(ArtistCreateEditComponent, {
-      width: '450px',
+      width: '500px',
       disableClose: true
     }).afterClosed().subscribe(result => {
       if (result == true) {
-        this.paginator.pageIndex = 0;
+        this.paginator.page.emit(new PageEvent())
       }
     });
   }
@@ -81,10 +83,20 @@ export class ArtistListComponent extends BaseComponent implements AfterViewInit 
       data: { id: id }
     }).afterClosed().subscribe(result => {
       if (result == true) {
-        this.paginator.pageIndex = 0;
+        this.paginator.page.emit(new PageEvent());
       }
     });
   }
 
-  delete(id: number) {}
+  delete(id: number) {
+    this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: new ConfirmDialogModel({
+        message: 'Delete this item?'
+      })
+    }).afterClosed().pipe(
+      switchMap(result => iif(() => result == true, this.artistService.delete(id), EMPTY)),
+      tap(() => this.paginator.page.emit(new PageEvent()))
+    ).subscribe()
+  }
 }

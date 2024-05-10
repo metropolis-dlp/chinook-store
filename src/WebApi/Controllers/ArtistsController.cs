@@ -35,4 +35,11 @@ public class ArtistsController : ApiControllerBase
         await Sender.Send(command);
         return NoContent();
     }
+
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        await Sender.Send(new DeleteArtistCommand(id));
+        return NoContent();
+    }
 }
