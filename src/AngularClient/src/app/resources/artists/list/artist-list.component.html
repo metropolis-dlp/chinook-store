@@ -1,0 +1,49 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput [formControl]="filter">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="elements">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="albums">
+      <th mat-header-cell *matHeaderCellDef>Albums</th>
+      <td mat-cell *matCellDef="let element">{{ element.albums }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="d-flex flex-justify-center">
+          <button mat-icon-button (click)="create()">
+            <mat-icon color="primary">library_add</mat-icon>
+          </button>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="d-flex flex-justify-center">
+          <button mat-icon-button (click)="edit(row.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="delete(row.id)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="resultsLength"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[10, 30, 100]"
+  >
+  </mat-paginator>
+</div>
