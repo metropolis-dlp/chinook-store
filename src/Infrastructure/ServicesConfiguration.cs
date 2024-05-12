@@ -1,5 +1,7 @@
 using ChinookStore.Application._Common.Interfaces;
 using ChinookStore.Infrastructure.Persistence;
+using ChinookStore.Infrastructure.Persistence.Common;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,8 @@ public static class ServicesConfiguration
 
         services.AddScoped<IRepository>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<ApplicationDbContextInitializer>();
+
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
 
         return services;
     }
