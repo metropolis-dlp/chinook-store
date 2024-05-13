@@ -14,32 +14,32 @@ public class GenresController : ApiControllerBase
     {
         return Ok(await Sender.Send(new GetAllGenresQuery()));
     }
-    
+
     [HttpGet("{id:int}")]
     public async Task<ActionResult<GenreDto>> GetAsync(int id)
     {
         return Ok(await Sender.Send(new GetGenreByIdQuery(id)));
     }
-    
+
     [HttpPost]
     public async Task<ActionResult> CreateAsync(CreateGenreCommand command)
     {
         await Sender.Send(command);
         return NoContent();
     }
-    
+
     [HttpPut("{id:int}")]
     public async Task<ActionResult> UpdateAsync(int id, UpdateGenreCommand command)
     {
         if (id != command.Id)
         {
-            throw new BadRequestException("Invalid Id");
+            return BadRequest("Invalid Id");
         }
 
         await Sender.Send(command);
         return NoContent();
     }
-    
+
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteAsync(int id)
     {

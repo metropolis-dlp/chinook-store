@@ -14,6 +14,7 @@ public class CustomExceptionHandler : IExceptionHandler
         _exceptionHandlers = new Dictionary<Type, Func<HttpContext, Exception, Task>>
         {
                 { typeof(ArgumentErrorsException), HandleArgumentsValidationException },
+                { typeof(ValidationErrorsException), HandleValidationErrorsException },
                 { typeof(NotFoundException), HandleNotFoundException },
                 { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
                 { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
@@ -31,6 +32,20 @@ public class CustomExceptionHandler : IExceptionHandler
 
         await handler.Invoke(httpContext, exception);
         return true;
+    }
+
+    private async Task HandleValidationErrorsException(HttpContext httpContext, Exception ex)
+    {
+        var exception = (ValidationErrorsException)ex;
+
+        httpContext.Response.StatusCode = StatusCodes.Status409Conflict;
+
+        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
+        {
+            Status = StatusCodes.Status409Conflict,
+            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.8",
+            Detail = exception.Errors[0]
+        });
     }
 
     private async Task HandleArgumentsValidationException(HttpContext httpContext, Exception ex)
@@ -52,7 +67,7 @@ public class CustomExceptionHandler : IExceptionHandler
 
         httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
 
-        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails()
+        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
         {
             Status = StatusCodes.Status404NotFound,
             Type = "https://tools.ietf.org/html/rfc7231#section-6.5.4",
