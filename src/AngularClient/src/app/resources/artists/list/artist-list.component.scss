@@ -2,6 +2,8 @@ mat-form-field {
   width: 100%;
 }
 
-.mat-column-albums {
-  text-align: center;
+.sorted-header {
+  display: flex;
+  justify-content: center;
 }
+

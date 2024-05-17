@@ -28,7 +28,7 @@ public class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRe
 
         if (failures.Any())
         {
-            throw new ArgumentErrorsException(failures);
+            throw new InvalidArgumentsErrorsException(failures);
         }
 
         return await next();

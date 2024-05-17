@@ -1,6 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs";
+import {map, Observable} from "rxjs";
+import {PaginationRequestModel} from "../model/pagination-request.model";
+import {PaginationResultModel} from "../model/pagination-result.model";
+import {ArtistModel} from "../../resources/artists/artist.model";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +19,14 @@ export abstract class BaseService<T> {
 
   getAll() {
     return this.client.get<T[]>(`${this.baseUri}`);
+  }
+
+  query(pagination: PaginationRequestModel)
+    : Observable<PaginationResultModel<T>> {
+
+    return this.client.get<PaginationResultModel<T>>(
+      `${this.baseUri}/query`,
+      { params: pagination.getParams() });
   }
 
   create(model: T) {

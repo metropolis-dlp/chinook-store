@@ -11,6 +11,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {RouterLink} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
+import {PaginationRequestModel} from "../../../common/model/pagination-request.model";
 
 @Component({
   selector: 'app-user-list',
@@ -49,11 +50,12 @@ export class UserListComponent extends BaseComponent implements AfterViewInit {
       startWith({}),
       switchMap(() =>
         this.userService.query(
-          this.filter.value,
-          this.paginator.pageIndex,
-          this.paginator.pageSize,
-          this.sort.active,
-          this.sort.direction == "asc")),
+          new PaginationRequestModel(
+            this.paginator, this.sort,
+            {
+              search: this.filter.value
+            }))
+      ),
       tap(data => {
         this.resultsLength = data.total;
         this.elements = data.items;

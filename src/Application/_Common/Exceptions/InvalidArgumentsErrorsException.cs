@@ -3,23 +3,23 @@ using FluentValidation.Results;
 
 namespace ChinookStore.Application._Common.Exceptions;
 
-public class ArgumentErrorsException : Exception
+public class InvalidArgumentsErrorsException : Exception
 {
     public Dictionary<string, string[]> Errors { get; }
 
-    public ArgumentErrorsException(IEnumerable<ValidationFailure> failures)
+    public InvalidArgumentsErrorsException(IEnumerable<ValidationFailure> failures)
     {
         Errors = failures
             .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
             .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray());
     }
 
-    public ArgumentErrorsException(ValidationFailure failure)
+    public InvalidArgumentsErrorsException(ValidationFailure failure)
         : this(new[] { failure })
     {
     }
 
-    public ArgumentErrorsException(string propertyName, string errorMessage)
+    public InvalidArgumentsErrorsException(string propertyName, string errorMessage)
         : this(new ValidationFailure(propertyName, errorMessage))
     {
     }

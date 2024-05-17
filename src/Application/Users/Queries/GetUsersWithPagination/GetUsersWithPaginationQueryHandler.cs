@@ -14,10 +14,10 @@ public class GetUsersWithPaginationQueryHandler(IRepository repository, IMapper 
     {
         var query = repository.Query<User>();
 
-        if (request.SearchText != null)
+        if (request.Search != null)
         {
-            query = query.Where(u => u.FirstName.Contains(request.SearchText)
-                                      || u.LastName.Contains(request.SearchText));
+            query = query.Where(u => u.FirstName.Contains(request.Search)
+                                      || u.LastName.Contains(request.Search));
         }
 
         query = request.Order switch
@@ -35,6 +35,6 @@ public class GetUsersWithPaginationQueryHandler(IRepository repository, IMapper 
         };
 
         return await query.PaginatedListAsync<User, UserListItemDto>(
-          request.PageIndex, request.PageSize, mapper.ConfigurationProvider, cancellationToken);
+          request.Offset, request.Size, mapper.ConfigurationProvider, cancellationToken);
     }
 }

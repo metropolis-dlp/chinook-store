@@ -16,9 +16,9 @@ public class ArtistsController : ApiControllerBase
     }
 
     [HttpGet("query")]
-    public async Task<ActionResult<PaginatedList<ArtistListItemDto>>> GetWithPagination(string? search, int page, int size)
+    public async Task<ActionResult<PaginatedList<ArtistListItemDto>>> GetWithPagination([FromQuery] GetArtistsWithPaginationQuery query)
     {
-        return await Sender.Send(new GetArtistsWithPaginationQuery(search, page, size));
+        return await Sender.Send(query);
     }
 
     [HttpPost]

@@ -8,4 +8,7 @@
         <BuildOutputFolder>dist</BuildOutputFolder>
         <BuildCommandWorkingDirectory>/Users/hyrule_dl/source/local/ChinookStore/src/AngularClient</BuildCommandWorkingDirectory>
     </PropertyGroup>
+    <ItemGroup>
+      <Folder Include="src\app\common\interceptors\" />
+    </ItemGroup>
 </Project>

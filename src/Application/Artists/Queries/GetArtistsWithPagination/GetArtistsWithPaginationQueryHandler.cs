@@ -22,6 +22,6 @@ public class GetArtistsWithPaginationQueryHandler(IRepository repository, IMappe
         return await query
             .OrderBy(a => a.Name)
             .PaginatedListAsync<Artist, ArtistListItemDto>(
-                request.PageIndex, request.PageSize, mapper.ConfigurationProvider, cancellationToken);
+                request.Offset, request.Size, mapper.ConfigurationProvider, cancellationToken);
     }
 }

@@ -28,6 +28,7 @@ else
 app.UseExceptionHandler(_ => { });
 
 app.UseStaticFiles();
+
 app.UseRouting();
 app.MapControllerRoute(
     name: "default",

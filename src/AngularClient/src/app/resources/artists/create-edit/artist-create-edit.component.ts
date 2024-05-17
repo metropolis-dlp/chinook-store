@@ -35,7 +35,7 @@ export class ArtistCreateEditComponent extends BaseComponent implements OnInit {
 
   constructor(
     public dialog: MatDialogRef<ArtistCreateEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number | null },
+    @Inject(MAT_DIALOG_DATA) public data: { id: number | null } | null,
     private artistService: ArtistService
   ) {
     super();

@@ -3,9 +3,9 @@ using MediatR;
 
 namespace ChinookStore.Application.Users.Queries.GetUsersWithPagination;
 
-public class GetUsersWithPaginationQuery(int pageIndex, int pageSize, UserListSortBy sortBy, bool isAscending)
-    : SortedPaginationQuery<UserListSortBy>(pageIndex, pageSize, sortBy, isAscending),
+public class GetUsersWithPaginationQuery
+    : SortedPaginationQuery<UserListSortBy>,
       IRequest<PaginatedList<UserListItemDto>>
 {
-    public string? SearchText { get; init; }
+    public required string? Search { get; init; }
 }

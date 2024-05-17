@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="title">
+
+  @if (data.type == AlertType.Info) {
+    <mat-icon>info_outlined</mat-icon>
+  } @else if (data.type == AlertType.Warning) {
+    <mat-icon color="primary">warning_outlined</mat-icon>
+  } @else {
+    <mat-icon color="warn">dangerous_outlined</mat-icon>
+  }
+
+  <span>{{ data.title }}</span>
+</h2>
+<div mat-dialog-content>
+  {{ data.message }}
+</div>
+<div mat-dialog-actions [align]="'end'">
+  <button mat-button color="primary" [mat-dialog-close]="false">Close</button>
+</div>

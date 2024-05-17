@@ -13,6 +13,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {ArtistCreateEditComponent} from "../create-edit/artist-create-edit.component";
 import {ConfirmDialogComponent} from "../../../common/components/confirm-dialog/confirm-dialog.component";
 import {ConfirmDialogModel} from "../../../common/components/confirm-dialog/confirm-dialog.model";
+import {MatSort, MatSortModule} from "@angular/material/sort";
+import {PaginationRequestModel} from "../../../common/model/pagination-request.model";
 
 @Component({
   selector: 'app-artist-list',
@@ -23,13 +25,15 @@ import {ConfirmDialogModel} from "../../../common/components/confirm-dialog/conf
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   templateUrl: './artist-list.component.html',
   styleUrl: './artist-list.component.scss'
 })
 export class ArtistListComponent extends BaseComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   filter = new FormControl<string | null>(null);
 
@@ -46,6 +50,7 @@ export class ArtistListComponent extends BaseComponent implements AfterViewInit 
 
   ngAfterViewInit(): void {
     merge(
+      this.sort.sortChange,
       this.filter.valueChanges.pipe(
         debounce(() => interval(500)),
         tap(() => this.paginator.pageIndex = 0)),
@@ -54,9 +59,9 @@ export class ArtistListComponent extends BaseComponent implements AfterViewInit 
       startWith({}),
       switchMap(() =>
         this.artistService.query(
-          this.filter.value,
-          this.paginator.pageIndex,
-          this.paginator.pageSize)),
+          new PaginationRequestModel(this.paginator, this.sort, {
+            search: this.filter.value
+          }))),
       tap(data => {
         this.resultsLength = data.total;
         this.elements = data.items;
@@ -92,6 +97,7 @@ export class ArtistListComponent extends BaseComponent implements AfterViewInit 
     this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: new ConfirmDialogModel({
+        title: 'Delete artist',
         message: 'Delete this item?'
       })
     }).afterClosed().pipe(

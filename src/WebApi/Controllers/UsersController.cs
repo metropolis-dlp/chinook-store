@@ -9,11 +9,8 @@ public class UsersController : ApiControllerBase
 {
     [HttpGet("query")]
     public async Task<ActionResult<PaginatedList<UserListItemDto>>> GetWithPagination(
-        string? search, int page, int size, UserListSortBy sort, bool asc)
+        [FromQuery] GetUsersWithPaginationQuery query)
     {
-        return await Sender.Send(new GetUsersWithPaginationQuery(page, size, sort, asc)
-        {
-            SearchText = search
-        });
+        return await Sender.Send(query);
     }
 }

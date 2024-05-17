@@ -13,8 +13,8 @@ public class CustomExceptionHandler : IExceptionHandler
         // Register known exception types and handlers.
         _exceptionHandlers = new Dictionary<Type, Func<HttpContext, Exception, Task>>
         {
-                { typeof(ArgumentErrorsException), HandleArgumentsValidationException },
-                { typeof(ValidationErrorsException), HandleValidationErrorsException },
+                { typeof(InvalidArgumentsErrorsException), HandleArgumentsValidationException },
+                { typeof(ValidationErrorException), HandleValidationErrorsException },
                 { typeof(NotFoundException), HandleNotFoundException },
                 { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
                 { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
@@ -36,7 +36,7 @@ public class CustomExceptionHandler : IExceptionHandler
 
     private async Task HandleValidationErrorsException(HttpContext httpContext, Exception ex)
     {
-        var exception = (ValidationErrorsException)ex;
+        var exception = (ValidationErrorException)ex;
 
         httpContext.Response.StatusCode = StatusCodes.Status409Conflict;
 
@@ -44,13 +44,13 @@ public class CustomExceptionHandler : IExceptionHandler
         {
             Status = StatusCodes.Status409Conflict,
             Type = "https://tools.ietf.org/html/rfc7231#section-6.5.8",
-            Detail = exception.Errors[0]
+            Detail = exception.Message
         });
     }
 
     private async Task HandleArgumentsValidationException(HttpContext httpContext, Exception ex)
     {
-        var exception = (ArgumentErrorsException)ex;
+        var exception = (InvalidArgumentsErrorsException)ex;
 
         httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
