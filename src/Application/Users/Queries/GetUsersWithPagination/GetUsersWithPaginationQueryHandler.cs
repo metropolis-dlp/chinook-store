@@ -20,7 +20,7 @@ public class GetUsersWithPaginationQueryHandler(IRepository repository, IMapper 
                                       || u.LastName.Contains(request.Search));
         }
 
-        query = request.Order switch
+        query = request.Sort switch
         {
             UserListSortBy.FirstName => request.Asc
                 ? query.OrderBy(u => u.FirstName)

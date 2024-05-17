@@ -4,6 +4,7 @@ using ChinookStore.Application._Common.Mappings;
 using ChinookStore.Application._Common.Model;
 using ChinookStore.Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChinookStore.Application.Artists.Queries.GetArtistsWithPagination;
 
@@ -19,8 +20,18 @@ public class GetArtistsWithPaginationQueryHandler(IRepository repository, IMappe
             query = query.Where(a => a.Name.Contains(request.Search));
         }
 
+        query = request.Sort switch
+        {
+            ArtistListSortBy.Name => request.Asc
+                ? query.OrderBy(a => a.Name)
+                : query.OrderByDescending(a => a.Name),
+            ArtistListSortBy.Albums => request.Asc
+                ? query.OrderBy(a => a.Albums.Count())
+                : query.OrderByDescending(a => a.Albums.Count()),
+            _ => request.Asc ? query.OrderBy(a => a.Id) : query.OrderByDescending(a => a.Id)
+        };
+
         return await query
-            .OrderBy(a => a.Name)
             .PaginatedListAsync<Artist, ArtistListItemDto>(
                 request.Offset, request.Size, mapper.ConfigurationProvider, cancellationToken);
     }
