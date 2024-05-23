@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ChinookStore.Web.Controllers;
+namespace ChinookStore.Web.Common;
 
 [ApiController]
 public class ApiControllerBase : ControllerBase

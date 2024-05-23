@@ -1,7 +1,7 @@
 using ChinookStore.Application._Common.Exceptions;
 using ChinookStore.Application.Genres.Commands;
 using ChinookStore.Application.Genres.Queries;
-using ChinookStore.Web.Infrastructure;
+using ChinookStore.Web.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChinookStore.Web.Controllers;

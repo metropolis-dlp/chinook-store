@@ -1,5 +1,6 @@
 using ChinookStore.Application._Common.Model;
 using ChinookStore.Application.Users.Queries.GetUsersWithPagination;
+using ChinookStore.Web.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChinookStore.Web.Controllers;

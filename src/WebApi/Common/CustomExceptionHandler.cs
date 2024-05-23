@@ -2,7 +2,7 @@ using ChinookStore.Application._Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ChinookStore.Web.Infrastructure;
+namespace ChinookStore.Web.Common;
 
 public class CustomExceptionHandler : IExceptionHandler
 {

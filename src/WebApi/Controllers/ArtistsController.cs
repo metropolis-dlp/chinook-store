@@ -2,6 +2,7 @@ using ChinookStore.Application._Common.Model;
 using ChinookStore.Application.Artists.Commands;
 using ChinookStore.Application.Artists.Queries.GetArtistById;
 using ChinookStore.Application.Artists.Queries.GetArtistsWithPagination;
+using ChinookStore.Web.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChinookStore.Web.Controllers;

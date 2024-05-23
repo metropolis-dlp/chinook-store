@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using ChinookStore.Web.Infrastructure;
+using ChinookStore.Web.Common;
 
 namespace ChinookStore.Web;
 
