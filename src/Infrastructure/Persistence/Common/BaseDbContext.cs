@@ -19,10 +19,11 @@ public abstract class BaseDbContext(DbContextOptions options, IMediator mediator
         return Set<T>();
     }
 
-    public void Insert<T>(T entity)
+    public T Insert<T>(T entity)
         where T : DomainEntity
     {
-        Add(entity);
+        var entry = Add(entity);
+        return entry.Entity;
     }
 
     public void Delete<T>(T entity)

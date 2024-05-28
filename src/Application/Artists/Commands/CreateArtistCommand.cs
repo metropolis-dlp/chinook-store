@@ -5,7 +5,7 @@ using MediatR;
 
 namespace ChinookStore.Application.Artists.Commands;
 
-public record CreateArtistCommand(string Name) : IRequest;
+public record CreateArtistCommand(string Name) : IRequest<int>;
 
 public class CreateArtistCommandValidator : AbstractValidator<CreateArtistCommand>
 {
@@ -15,11 +15,13 @@ public class CreateArtistCommandValidator : AbstractValidator<CreateArtistComman
     }
 }
 
-public class CreateArtistCommandHandler(IRepository repository) : IRequestHandler<CreateArtistCommand>
+public class CreateArtistCommandHandler(IRepository repository) : IRequestHandler<CreateArtistCommand, int>
 {
-    public async Task Handle(CreateArtistCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateArtistCommand request, CancellationToken cancellationToken)
     {
-        repository.Insert(new Artist(request.Name));
+        var entry = repository.Insert(new Artist(request.Name));
         await repository.SaveChangesAsync(cancellationToken);
+
+        return entry.Id;
     }
 }

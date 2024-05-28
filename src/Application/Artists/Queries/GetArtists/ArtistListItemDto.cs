@@ -2,7 +2,7 @@ using AutoMapper;
 using ChinookStore.Application._Common.Mappings;
 using ChinookStore.Domain.Entities;
 
-namespace ChinookStore.Application.Artists.Queries.GetArtistsWithPagination;
+namespace ChinookStore.Application.Artists.Queries.GetArtists;
 
 public class ArtistListItemDto : IMapFrom<Artist>
 {

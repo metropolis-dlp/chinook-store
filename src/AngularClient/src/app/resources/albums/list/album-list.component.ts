@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
-import {MatPaginator} from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {AlbumModel} from "../album.model";
 import {BaseComponent} from "../../../common/components/base.component";
-import {debounce, interval, merge, startWith, switchMap, takeUntil, tap} from "rxjs";
+import {debounce, EMPTY, iif, interval, merge, startWith, switchMap, takeUntil, tap} from "rxjs";
 import {PaginationRequestModel} from "../../../common/model/pagination-request.model";
 import {AlbumService} from "../album.service";
 import {
@@ -21,6 +21,10 @@ import {MatIcon} from "@angular/material/icon";
 import {MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {DatePipe} from "@angular/common";
+import {RouterLink} from "@angular/router";
+import {ConfirmDialogComponent} from "../../../common/components/confirm-dialog/confirm-dialog.component";
+import {ConfirmDialogModel} from "../../../common/components/confirm-dialog/confirm-dialog.model";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-album-list',
@@ -45,7 +49,8 @@ import {DatePipe} from "@angular/common";
     MatTable,
     ReactiveFormsModule,
     MatHeaderCellDef,
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './album-list.component.html',
   styleUrl: './album-list.component.scss'
@@ -61,6 +66,7 @@ export class AlbumListComponent extends BaseComponent implements AfterViewInit {
   resultsLength = 0;
 
   constructor(
+    public dialog: MatDialog,
     private albumService: AlbumService
   ) {
     super();
@@ -86,5 +92,18 @@ export class AlbumListComponent extends BaseComponent implements AfterViewInit {
       }),
       takeUntil(this.unsubscriptionNotifier))
       .subscribe();
+  }
+
+  delete(id: number) {
+    this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: new ConfirmDialogModel({
+        title: 'Delete album',
+        message: 'Delete this item?'
+      })
+    }).afterClosed().pipe(
+      switchMap(result => iif(() => result == true, this.albumService.delete(id), EMPTY)),
+      tap(() => this.paginator.page.emit(new PageEvent()))
+    ).subscribe()
   }
 }

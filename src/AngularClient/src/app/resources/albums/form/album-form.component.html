@@ -1,0 +1,30 @@
+<div [formGroup]="form" class="d-flex flex-column">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Artist</mat-label>
+    <combo-box formControlName="artistId" [options]="artists"></combo-box>
+  </mat-form-field>
+
+  <div class="d-flex flex-gap">
+    <mat-form-field class="flex-grow">
+      <mat-label>Genre</mat-label>
+      <mat-select formControlName="genreId">
+        @for (genre of genres; track genre) {
+          <mat-option [value]="genre.id">{{genre.name}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Release</mat-label>
+      <input matInput [matDatepicker]="pickerRelease" formControlName="releaseDate">
+      <mat-datepicker-toggle matIconSuffix [for]="pickerRelease"></mat-datepicker-toggle>
+      <mat-datepicker #pickerRelease></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+</div>

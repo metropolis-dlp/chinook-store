@@ -7,7 +7,7 @@ public interface IRepository
     IQueryable<TEntity> Query<TEntity>()
         where TEntity : DomainEntity;
 
-    void Insert<TEntity>(TEntity entity)
+    TEntity Insert<TEntity>(TEntity entity)
         where TEntity : DomainEntity;
 
     void Delete<TEntity>(TEntity entity)

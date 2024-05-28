@@ -1,4 +1,5 @@
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using ChinookStore.Application._Common.Interfaces;
 using ChinookStore.Application._Common.Mappings;
 using ChinookStore.Application._Common.Model;
@@ -6,10 +7,11 @@ using ChinookStore.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace ChinookStore.Application.Artists.Queries.GetArtistsWithPagination;
+namespace ChinookStore.Application.Artists.Queries.GetArtists;
 
-public class GetArtistsWithPaginationQueryHandler(IRepository repository, IMapper mapper)
-    : IRequestHandler<GetArtistsWithPaginationQuery, PaginatedList<ArtistListItemDto>>
+public class GetArtistsQueryHandler(IRepository repository, IMapper mapper)
+    : IRequestHandler<GetArtistsWithPaginationQuery, PaginatedList<ArtistListItemDto>>,
+      IRequestHandler<GetAllArtistsQuery, ArtistListItemDto[]>
 {
     public async Task<PaginatedList<ArtistListItemDto>> Handle(GetArtistsWithPaginationQuery request, CancellationToken cancellationToken)
     {
@@ -34,5 +36,12 @@ public class GetArtistsWithPaginationQueryHandler(IRepository repository, IMappe
         return await query
             .PaginatedListAsync<Artist, ArtistListItemDto>(
                 request.Offset, request.Size, mapper.ConfigurationProvider, cancellationToken);
+    }
+
+    public async Task<ArtistListItemDto[]> Handle(GetAllArtistsQuery request, CancellationToken cancellationToken)
+    {
+        return await repository.Query<Artist>()
+            .ProjectTo<ArtistListItemDto>(mapper.ConfigurationProvider)
+            .ToArrayAsync(cancellationToken);
     }
 }

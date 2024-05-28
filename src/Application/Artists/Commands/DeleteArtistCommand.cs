@@ -14,14 +14,12 @@ public class DeleteArtistCommandHandler(IRepository repository) : IRequestHandle
     public async Task Handle(DeleteArtistCommand request, CancellationToken cancellationToken)
     {
         var artist = await repository.Query<Artist>().FirstByIdAsync(request.Id, cancellationToken);
-
         if (await repository.Query<Album>().AnyAsync(a => a.Artist.Id == request.Id, cancellationToken))
         {
             throw new ValidationErrorException("There are one or more albums related to this artist.");
         }
 
         repository.Delete(artist);
-
         await repository.SaveChangesAsync(cancellationToken);
     }
 }

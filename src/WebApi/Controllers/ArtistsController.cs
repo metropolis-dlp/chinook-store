@@ -1,7 +1,7 @@
 using ChinookStore.Application._Common.Model;
 using ChinookStore.Application.Artists.Commands;
 using ChinookStore.Application.Artists.Queries.GetArtistById;
-using ChinookStore.Application.Artists.Queries.GetArtistsWithPagination;
+using ChinookStore.Application.Artists.Queries.GetArtists;
 using ChinookStore.Web.Common;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,26 +11,33 @@ namespace ChinookStore.Web.Controllers;
 public class ArtistsController : ApiControllerBase
 {
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<ArtistDetailsDto>> Get(int id)
+    public async Task<ActionResult<ArtistDetailsDto>> GetAsync(int id)
     {
         return await Sender.Send(new GetArtistByIdQuery(id));
     }
 
     [HttpGet("query")]
-    public async Task<ActionResult<PaginatedList<ArtistListItemDto>>> GetWithPagination([FromQuery] GetArtistsWithPaginationQuery query)
+    public async Task<ActionResult<PaginatedList<ArtistListItemDto>>> GetWithPaginationAsync(
+        [FromQuery] GetArtistsWithPaginationQuery query)
     {
         return await Sender.Send(query);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<ArtistDetailsDto>> Create(CreateArtistCommand command)
+    [HttpGet]
+    public async Task<ActionResult<ArtistListItemDto[]>> GetAllAsync()
     {
-        await Sender.Send(command);
-        return Created();
+        return Ok(await Sender.Send(new GetAllArtistsQuery()));
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> CreateAsync(CreateArtistCommand command)
+    {
+        var id = await Sender.Send(command);
+        return CreatedAtAction("Get", id);
     }
 
     [HttpPut("{id:int}")]
-    public async Task<ActionResult<ArtistDetailsDto>> Update(int id, UpdateArtistCommand command)
+    public async Task<ActionResult<ArtistDetailsDto>> UpdateAsync(int id, UpdateArtistCommand command)
     {
         command.Id = id;
         await Sender.Send(command);
@@ -38,7 +45,7 @@ public class ArtistsController : ApiControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<ActionResult> Delete(int id)
+    public async Task<ActionResult> DeleteAsync(int id)
     {
         await Sender.Send(new DeleteArtistCommand(id));
         return NoContent();
