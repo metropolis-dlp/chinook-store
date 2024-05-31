@@ -4,10 +4,7 @@ import {MatInput, MatInputModule} from "@angular/material/input";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ComboBoxComponent} from "../../../common/components/combo-box/combo-box.component";
 import {MatOption, MatSelect} from "@angular/material/select";
-import {
-  MatDatepickerModule,
-} from "@angular/material/datepicker";
-import {provideNativeDateAdapter} from "@angular/material/core";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardModule} from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -19,7 +16,6 @@ import {BaseComponent} from "../../../common/components/base.component";
 @Component({
   selector: 'app-album-create',
   standalone: true,
-  providers: [provideNativeDateAdapter()],
   imports: [
     MatFormField,
     MatInput,

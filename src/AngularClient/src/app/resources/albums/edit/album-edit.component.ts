@@ -7,12 +7,10 @@ import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AlbumModel} from "../album.model";
 import {BaseComponent} from "../../../common/components/base.component";
 import {AlbumService} from "../album.service";
-import {provideNativeDateAdapter} from "@angular/material/core";
 
 @Component({
   selector: 'app-album-edit',
   standalone: true,
-  providers: [provideNativeDateAdapter()],
   imports: [
     AlbumFormComponent,
     MatButton,
