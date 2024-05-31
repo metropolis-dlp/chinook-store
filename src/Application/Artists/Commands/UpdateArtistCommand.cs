@@ -6,11 +6,7 @@ using MediatR;
 
 namespace ChinookStore.Application.Artists.Commands;
 
-public class UpdateArtistCommand : IRequest
-{
-    public int Id { get; set; }
-    public required string Name { get; init; }
-}
+public record UpdateArtistCommand(int Id, string Name) : IRequest;
 
 public class UpdateArtistCommandValidator : AbstractValidator<UpdateArtistCommand>
 {

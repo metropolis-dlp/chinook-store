@@ -37,9 +37,9 @@ public class ArtistsController : ApiControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<ActionResult<ArtistDetailsDto>> UpdateAsync(int id, UpdateArtistCommand command)
+    public async Task<ActionResult> UpdateAsync(int id, UpdateArtistCommand command)
     {
-        command.Id = id;
+        command = command with { Id = id };
         await Sender.Send(command);
         return NoContent();
     }

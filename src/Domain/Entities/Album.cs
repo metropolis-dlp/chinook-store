@@ -3,12 +3,12 @@ using ChinookStore.Domain.Common;
 
 namespace ChinookStore.Domain.Entities;
 
-public class Album(string title, DateOnly releaseDate) : DomainEntity
+public class Album : DomainEntity
 {
     [MaxLength(300)]
-    public string Title { get; } = title;
+    public required string Title { get; set; }
 
-    public DateOnly ReleaseDate { get; } = releaseDate;
-    public required Artist Artist { get; init; }
-    public required Genre Genre { get; init; }
+    public required DateOnly ReleaseDate { get; set; }
+    public required Artist Artist { get; set; }
+    public required Genre Genre { get; set; }
 }

@@ -6,7 +6,7 @@ using MediatR;
 
 namespace ChinookStore.Application.Albums.Commands;
 
-public record CreateAlbumCommand(string Title, int ArtistId, int GenreId, DateTime ReleaseDate
+public record CreateAlbumCommand(string Title, int ArtistId, int GenreId, DateOnly ReleaseDate
 ) : IRequest<int>;
 
 public class CreateAlbumCCommandValidator : AbstractValidator<CreateAlbumCommand>
@@ -24,8 +24,10 @@ public class CreateAlbumCommandHandler(IRepository repository) : IRequestHandler
         var artist = await repository.Query<Artist>().FirstByIdAsync(request.ArtistId, cancellationToken);
         var genre = await repository.Query<Genre>().FirstByIdAsync(request.GenreId, cancellationToken);
 
-        var entry = repository.Insert(new Album(request.Title, new DateOnly())
+        var entry = repository.Insert(new Album
         {
+            Title = request.Title,
+            ReleaseDate = new DateOnly(),
             Artist = artist,
             Genre = genre
         });

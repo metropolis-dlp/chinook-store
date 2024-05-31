@@ -29,6 +29,14 @@ public class AlbumsController : ApiControllerBase
         return CreatedAtAction("Get", id);
     }
 
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult> UpdateAsync(int id, UpdateAlbumCommand command)
+    {
+        command = command with { Id = id };
+        await Sender.Send(command);
+        return NoContent();
+    }
+
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteAsync(int id)
     {

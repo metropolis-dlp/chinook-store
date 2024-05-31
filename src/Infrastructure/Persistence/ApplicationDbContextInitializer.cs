@@ -54,10 +54,10 @@ public class ApplicationDbContextInitializer(
         var artistsMap = DeserializeAndInsertEntities(content, "Artist",
             source => new Artist(source.Name));
         var albumsMap = DeserializeAndInsertEntities(content, "Album",
-            source => new Album(
-                title: source.Title,
-                releaseDate: DateOnly.ParseExact(source.ReleaseDate, "yyyy-MM-dd", CultureInfo.InvariantCulture))
+            source => new Album
             {
+                Title = source.Title,
+                ReleaseDate = DateOnly.ParseExact(source.ReleaseDate, "yyyy-MM-dd", CultureInfo.InvariantCulture),
                 Genre = genresMap.First(g => g.Id == source.GenreId).Entity,
                 Artist = artistsMap.First(a => a.Id == source.ArtistId).Entity
             });
