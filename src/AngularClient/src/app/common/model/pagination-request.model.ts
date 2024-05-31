@@ -1,6 +1,6 @@
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {HttpParams} from "@angular/common/http";
+import { HttpParams } from "@angular/common/http";
 import {retry} from "rxjs";
 
 export class PaginationRequestModel {
