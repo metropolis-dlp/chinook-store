@@ -27,7 +27,7 @@ public class CreateAlbumCommandHandler(IRepository repository) : IRequestHandler
         var entry = repository.Insert(new Album
         {
             Title = request.Title,
-            ReleaseDate = new DateOnly(),
+            ReleaseDate = request.ReleaseDate,
             Artist = artist,
             Genre = genre
         });

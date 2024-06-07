@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using ChinookStore.Web.Common;
 
@@ -9,8 +11,12 @@ public static class ServicesConfiguration
     {
         // - Controllers
         services.AddControllers()
-            .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-        
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.Converters.Add(new DateOnlyAlwaysJsonConverter());
+            });
+
         // - Exceptions
         services.AddExceptionHandler<CustomExceptionHandler>();
 

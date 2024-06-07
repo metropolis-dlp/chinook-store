@@ -1,4 +1,6 @@
 export interface AlbumModel {
+  id: number;
+
   title: string;
   releaseDate: Date;
 

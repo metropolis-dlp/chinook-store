@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+  nav-menu {
+    color: mat.get-theme-color($theme, primary);
+
+    mat-toolbar {
+      background: mat.get-theme-color($theme, primary-container);
+    }
+
+    mat-sidenav {
+      border-right-color: mat.get-theme-color($theme, primary-container);
+    }
+  }
+}

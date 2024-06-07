@@ -1,14 +1,23 @@
+@use '@angular/material' as mat;
+@use 'app/common/components/nav-menu/nav-menu.component-theme' as nav-menu;
+
+@import 'styles/general';
 @import 'styles/flex';
 
-html, body { height: 100%; }
-body { font-family: Roboto, "Helvetica Neue", sans-serif; }
+$theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  )
+));
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+// Include material core styles.
+@include mat.core();
+@include mat.color-variants-backwards-compatibility($theme);
+
+:root {
+  @include mat.all-component-themes($theme);
+  @include nav-menu.theme($theme);
 }
 
-ul {
-  list-style-type: none;
-}

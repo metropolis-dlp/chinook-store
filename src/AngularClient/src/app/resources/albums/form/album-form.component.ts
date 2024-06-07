@@ -56,6 +56,7 @@ export class AlbumFormComponent extends ReactiveBaseComponent<AlbumModel> implem
   genres: BasicItemModel[] = [];
 
   form = new FormGroup({
+    id: new FormControl<number | null>(null),
     title: new FormControl<string>('', Validators.required),
     artistId: new FormControl<number>(0, Validators.required),
     genreId: new FormControl<number>(0, Validators.required),

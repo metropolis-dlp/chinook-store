@@ -6,7 +6,7 @@ using MediatR;
 
 namespace ChinookStore.Application.Albums.Commands;
 
-public record UpdateAlbumCommand(int Id, string Title, int ArtistId, int GenreId, DateTime ReleaseDate) : IRequest;
+public record UpdateAlbumCommand(int Id, string Title, int ArtistId, int GenreId, DateOnly ReleaseDate) : IRequest;
 
 public class UpdateAlbumCommandValidator : AbstractValidator<UpdateAlbumCommand>
 {
@@ -25,7 +25,7 @@ public class UpdateAlbumCommandHandler(IRepository repository) : IRequestHandler
 
         var album = await repository.Query<Album>().FirstByIdAsync(request.Id, cancellationToken);
         album.Title = request.Title;
-        album.ReleaseDate = DateOnly.FromDateTime(request.ReleaseDate);
+        album.ReleaseDate = request.ReleaseDate;
         album.Artist = artist;
         album.Genre = genre;
 

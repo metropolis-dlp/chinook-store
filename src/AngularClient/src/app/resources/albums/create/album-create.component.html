@@ -6,7 +6,7 @@
     <album-form [formControl]="form"></album-form>
   </mat-card-content>
   <mat-card-actions class="d-flex flex-gap">
-    <button mat-raised-button color="primary" (click)="submit()" [disabled]="!form.valid">Create</button>
+    <button mat-flat-button (click)="submit()" [disabled]="!form.valid">Create</button>
     <button mat-raised-button [routerLink]="['../list']">Cancel</button>
   </mat-card-actions>
 </mat-card>
