@@ -8,10 +8,10 @@ public class TrackConfiguration : IEntityTypeConfiguration<Track>
 {
     public void Configure(EntityTypeBuilder<Track> builder)
     {
-        builder.Property(t => t.Name);
-        builder.Property(t => t.Composer);
-        builder.Property(t => t.Milliseconds);
-        builder.Property(t => t.Bytes);
-        builder.Property(t => t.UnitPrice);
+        builder.Property(t => t.Number).IsRequired();
+        builder.Property(t => t.Name).HasMaxLength(200).IsRequired();
+        builder.Property(t => t.Composer).HasMaxLength(200).IsRequired();
+        builder.Property(t => t.Milliseconds).IsRequired();
+        builder.Property(t => t.UnitPrice).IsRequired();
     }
 }

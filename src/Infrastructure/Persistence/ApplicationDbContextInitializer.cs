@@ -62,8 +62,13 @@ public class ApplicationDbContextInitializer(
                 Artist = artistsMap.First(a => a.Id == source.ArtistId).Entity
             });
         var tracksMap = DeserializeAndInsertEntities(content, "Track",
-            source => new Track(source.Name, source.Composer, source.Milliseconds, source.Bytes, source.UnitPrice)
+            source => new Track
             {
+                Number = source.Id,
+                Name = source.Name,
+                Composer = source.Composer,
+                Milliseconds = source.Milliseconds,
+                UnitPrice = source.UnitPrice,
                 MediaType = mediaTypesMap.First(m => m.Id == source.MediaTypeId).MediaType,
                 Album = albumsMap.First(a => a.Id == source.AlbumId).Entity
             });

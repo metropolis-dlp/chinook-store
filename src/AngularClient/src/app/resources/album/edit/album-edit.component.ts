@@ -8,6 +8,7 @@ import {AlbumModel} from "../album.model";
 import {BaseComponent} from "../../../common/components/base.component";
 import {AlbumService} from "../album.service";
 import {switchMap, takeUntil, tap} from "rxjs";
+import {TrackListComponent} from "../../track/list/track-list.component";
 
 @Component({
   selector: 'app-album-edit',
@@ -21,7 +22,8 @@ import {switchMap, takeUntil, tap} from "rxjs";
     MatCardHeader,
     MatCardTitle,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TrackListComponent
   ],
   templateUrl: './album-edit.component.html',
   styleUrl: './album-edit.component.scss'
@@ -39,7 +41,7 @@ export class AlbumEditComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-      switchMap(params => this.albumService.getById(Number(params.get('id')))),
+      switchMap(params => this.albumService.get(Number(params.get('id')))),
       tap(album => this.form.setValue(album)),
       takeUntil(this.unsubscriptionNotifier)
     ).subscribe();

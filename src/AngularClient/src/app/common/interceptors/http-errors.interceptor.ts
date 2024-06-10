@@ -19,8 +19,20 @@ export class HttpErrorsInterceptor implements HttpInterceptor {
 
         switch (err.status) {
           case 400:
+            if (err.error) {
+              // TODO: Show dialog with property errors
+            }
             break;
           case 404:
+            this.dialog.open(AlertDialogComponent, {
+              width: '400px',
+              disableClose: true,
+              data: new AlertDialogModel({
+                title: 'Error',
+                message: 'Resource item not found',
+                type: AlertDialogType.Error
+              })
+            })
             break;
           case 409:
             return this.dialog.open(AlertDialogComponent, {
@@ -36,7 +48,7 @@ export class HttpErrorsInterceptor implements HttpInterceptor {
             break;
         }
 
-        return throwError(() => new Error('No controlado'))
+        return throwError(() => new Error('Internal error'))
       }));
   }
 }

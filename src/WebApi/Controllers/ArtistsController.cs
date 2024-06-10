@@ -16,17 +16,17 @@ public class ArtistsController : ApiControllerBase
         return await Sender.Send(new GetArtistByIdQuery(id));
     }
 
+    [HttpGet]
+    public async Task<ActionResult<ArtistListItemDto[]>> GetAsync()
+    {
+        return await Sender.Send(new GetAllArtistsQuery());
+    }
+
     [HttpGet("query")]
     public async Task<ActionResult<PaginatedList<ArtistListItemDto>>> GetWithPaginationAsync(
         [FromQuery] GetArtistsWithPaginationQuery query)
     {
         return await Sender.Send(query);
-    }
-
-    [HttpGet]
-    public async Task<ActionResult<ArtistListItemDto[]>> GetAllAsync()
-    {
-        return Ok(await Sender.Send(new GetAllArtistsQuery()));
     }
 
     [HttpPost]

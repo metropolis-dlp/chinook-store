@@ -226,9 +226,6 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                     b.Property<int>("AlbumId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("Bytes")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Composer")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -244,6 +241,9 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("TEXT");
@@ -323,7 +323,7 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ChinookStore.Domain.Entities.Album", b =>
                 {
                     b.HasOne("ChinookStore.Domain.Entities.Artist", "Artist")
-                        .WithMany()
+                        .WithMany("Albums")
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -566,6 +566,11 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
 
                     b.Navigation("Phone")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ChinookStore.Domain.Entities.Artist", b =>
+                {
+                    b.Navigation("Albums");
                 });
 #pragma warning restore 612, 618
         }

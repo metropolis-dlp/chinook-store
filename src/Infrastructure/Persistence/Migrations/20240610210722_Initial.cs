@@ -148,10 +148,10 @@ namespace ChinookStore.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    Number = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Composer = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Milliseconds = table.Column<int>(type: "INTEGER", nullable: false),
-                    Bytes = table.Column<long>(type: "INTEGER", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "TEXT", nullable: false),
                     AlbumId = table.Column<int>(type: "INTEGER", nullable: false),
                     MediaTypeId = table.Column<int>(type: "INTEGER", nullable: false)

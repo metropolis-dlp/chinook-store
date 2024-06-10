@@ -1,5 +1,5 @@
 import {Component, forwardRef, OnInit} from '@angular/core';
-import {ArtistModel} from "../../artists/artist.model";
+import {ArtistModel} from "../../artist/artist.model";
 import {BasicItemModel} from "../../../common/model/basic-item.model";
 import {
   AbstractControl,
@@ -15,7 +15,7 @@ import {ComboBoxComponent} from "../../../common/components/combo-box/combo-box.
 import {MatOption, MatSelect} from "@angular/material/select";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {MatInput} from "@angular/material/input";
-import {ArtistService} from "../../artists/artist.service";
+import {ArtistService} from "../../artist/artist.service";
 import {GenreService} from "../../genre/genre.service";
 import {forkJoin, takeUntil, tap} from "rxjs";
 import {ReactiveBaseComponent} from "../../../common/components/reactive-base.component";
@@ -72,8 +72,8 @@ export class AlbumFormComponent extends ReactiveBaseComponent<AlbumModel> implem
 
   ngOnInit(): void {
     forkJoin([
-      this.artistService.getAll(),
-      this.genreService.getAll()
+      this.artistService.get(),
+      this.genreService.get()
     ]).subscribe(([artists, genres]) => {
       this.artists = artists;
       this.genres = genres

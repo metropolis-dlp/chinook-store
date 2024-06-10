@@ -46,7 +46,7 @@ export class ArtistCreateEditComponent extends BaseComponent implements OnInit {
       return;
     }
 
-    this.artistService.getById(this.data.id)
+    this.artistService.get(this.data.id)
       .subscribe(artist => this.form.patchValue(artist));
   }
 
