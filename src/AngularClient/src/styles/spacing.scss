@@ -1,0 +1,38 @@
+@use 'sass:list';
+
+@mixin generate_spacing($prefix, $property, $property2: '') {
+  $sizes: [0, .25, .5, 1, 1.5, 3];
+  $spacing: 1rem;
+
+  @for $i from 1 through list.length($sizes) {
+    $size: list.nth($sizes, $i);
+
+    .#{$prefix}-#{$i - 1} {
+      #{$property}: $spacing * $size !important;
+
+      @if $property2 != '' {
+        #{$property2}: $spacing * $size !important;
+      }
+    }
+  }
+
+  .#{$prefix}-auto {
+    #{$property}: auto !important;
+  }
+}
+
+@include generate_spacing(m, margin);
+@include generate_spacing(mt, margin-top);
+@include generate_spacing(mr, margin-right);
+@include generate_spacing(mb, margin-bottom);
+@include generate_spacing(ml, margin-left);
+@include generate_spacing(mx, margin-left, margin-right);
+@include generate_spacing(my, margin-top, margin-bottom);
+
+@include generate_spacing(p, padding);
+@include generate_spacing(pt, padding-top);
+@include generate_spacing(pr, padding-right);
+@include generate_spacing(pb, padding-bottom);
+@include generate_spacing(pl, padding-left);
+@include generate_spacing(px, padding-left, padding-right);
+@include generate_spacing(py, padding-top, padding-bottom);

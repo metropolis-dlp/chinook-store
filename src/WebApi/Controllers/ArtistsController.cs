@@ -1,7 +1,7 @@
-using ChinookStore.Application._Common.Model;
-using ChinookStore.Application.Artists.Commands;
-using ChinookStore.Application.Artists.Queries.GetArtistById;
-using ChinookStore.Application.Artists.Queries.GetArtists;
+using ChinookStore.Application.Common.Model;
+using ChinookStore.Application.Features.Artists.Commands;
+using ChinookStore.Application.Features.Artists.Queries.GetArtistById;
+using ChinookStore.Application.Features.Artists.Queries.GetArtists;
 using ChinookStore.Web.Common;
 using Microsoft.AspNetCore.Mvc;
 

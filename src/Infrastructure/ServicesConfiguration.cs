@@ -1,4 +1,4 @@
-using ChinookStore.Application._Common.Interfaces;
+using ChinookStore.Application.Common.Interfaces;
 using ChinookStore.Infrastructure.Persistence;
 using ChinookStore.Infrastructure.Persistence.Common;
 using MediatR;

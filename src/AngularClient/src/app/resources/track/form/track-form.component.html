@@ -1,0 +1,32 @@
+<div [formGroup]="form" class="d-flex flex-column">
+  <mat-form-field>
+    <mat-label>Number</mat-label>
+    <input matInput type="number" formControlName="number">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Composer</mat-label>
+    <input matInput formControlName="composer">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Length</mat-label>
+    <input matInput type="time" formControlName="milliseconds">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Price</mat-label>
+    <input matInput type="number" formControlName="unitPrice">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Media Type</mat-label>
+    <combo-box formControlName="mediaType" [options]="mediaTypes"></combo-box>
+  </mat-form-field>
+
+</div>

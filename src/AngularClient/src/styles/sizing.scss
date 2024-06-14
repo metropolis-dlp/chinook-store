@@ -1,0 +1,19 @@
+@use 'sass:list';
+
+@mixin generate_sizing($prefix, $property) {
+  $sizes: [25, 50, 75, 100];
+  $percent: 1%;
+
+  @each $size in $sizes {
+    .#{$prefix}-#{$size} {
+      #{$property}: $percent * $size !important;
+    }
+  }
+
+  .#{$prefix}-auto {
+    #{$property}: auto !important;
+  }
+}
+
+@include generate_sizing(w, width);
+@include generate_sizing(h, height);

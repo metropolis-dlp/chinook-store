@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -16,6 +16,8 @@ import {TrackModel} from "../track.model";
 import {BaseComponent} from "../../../common/components/base.component";
 import {TrackService} from "../track.service";
 import {takeUntil, tap} from "rxjs";
+import {DurationPipe} from "../../../common/pipes/duration.pipe";
+import {CurrencyPipe} from "@angular/common";
 
 @Component({
   selector: 'track-list',
@@ -35,12 +37,16 @@ import {takeUntil, tap} from "rxjs";
     MatSort,
     MatSortHeader,
     MatTable,
-    MatHeaderCellDef
+    MatHeaderCellDef,
+    DurationPipe,
+    CurrencyPipe
   ],
   templateUrl: './track-list.component.html',
   styleUrl: './track-list.component.scss'
 })
-export class TrackListComponent extends BaseComponent implements OnInit {
+export class TrackListComponent extends BaseComponent implements OnInit, OnChanges {
+  @Input() albumId!: number;
+
   displayedColumns: string[] = ['number', 'name', 'composer', 'length', 'price', 'mediaType', 'options'];
   elements: TrackModel[] = [];
 
@@ -51,9 +57,12 @@ export class TrackListComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.trackService.getByAlbum(1).pipe(
+    this.trackService.getByAlbum(this.albumId).pipe(
       tap(tracks => this.elements = tracks),
       takeUntil(this.unsubscriptionNotifier)
     ).subscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
   }
 }

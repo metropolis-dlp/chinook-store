@@ -3,6 +3,8 @@
 
 @import 'styles/general';
 @import 'styles/flex';
+@import 'styles/spacing';
+@import 'styles/sizing';
 
 $theme: mat.define-theme((
   color: (

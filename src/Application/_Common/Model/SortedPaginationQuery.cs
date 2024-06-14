@@ -1,8 +1,0 @@
-namespace ChinookStore.Application._Common.Model;
-
-public class SortedPaginationQuery<TSort> : PaginationQuery
-  where TSort : Enum
-{
-  public required TSort Sort { get; init; }
-  public required bool Asc { get; init; }
-}

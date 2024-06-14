@@ -25,11 +25,13 @@ import {TrackListComponent} from "../../track/list/track-list.component";
     ReactiveFormsModule,
     TrackListComponent
   ],
-  templateUrl: './album-edit.component.html',
-  styleUrl: './album-edit.component.scss'
+  templateUrl: './album-edit.component.html'
 })
 export class AlbumEditComponent extends BaseComponent implements OnInit {
   form = new FormControl<AlbumModel>({} as AlbumModel, Validators.required);
+  get id(): number | null {
+    return this.form.value?.id ?? null;
+  }
 
   constructor(
     private router: Router,

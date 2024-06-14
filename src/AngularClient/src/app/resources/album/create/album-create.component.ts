@@ -32,8 +32,7 @@ import {BaseComponent} from "../../../common/components/base.component";
     MatOption,
     MatButton, RouterLink, AlbumFormComponent,
   ],
-  templateUrl: './album-create.component.html',
-  styleUrl: './album-create.component.scss'
+  templateUrl: './album-create.component.html'
 })
 export class AlbumCreateComponent extends BaseComponent{
   form = new FormControl<AlbumModel>({} as AlbumModel, Validators.required);

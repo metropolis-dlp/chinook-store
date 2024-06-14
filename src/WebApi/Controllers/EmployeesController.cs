@@ -1,4 +1,4 @@
-using ChinookStore.Application.Employees.Queries.GetAllEmployees;
+using ChinookStore.Application.Features.Employees.Queries.GetAllEmployees;
 using ChinookStore.Web.Common;
 using Microsoft.AspNetCore.Mvc;
 

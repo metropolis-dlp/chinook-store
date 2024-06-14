@@ -10,5 +10,7 @@
     </PropertyGroup>
     <ItemGroup>
       <Folder Include="src\app\common\interceptors\" />
+      <Folder Include="src\app\common\pipes\" />
+      <Folder Include="src\app\resources\media-type\" />
     </ItemGroup>
 </Project>

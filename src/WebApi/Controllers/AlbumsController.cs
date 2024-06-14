@@ -1,7 +1,7 @@
-using ChinookStore.Application._Common.Model;
-using ChinookStore.Application.Albums.Commands;
-using ChinookStore.Application.Albums.Queries.GetAlbumById;
-using ChinookStore.Application.Albums.Queries.GetAlbumsWithPagination;
+using ChinookStore.Application.Common.Model;
+using ChinookStore.Application.Features.Albums.Commands;
+using ChinookStore.Application.Features.Albums.Queries.GetAlbumById;
+using ChinookStore.Application.Features.Albums.Queries.GetAlbumsWithPagination;
 using ChinookStore.Web.Common;
 using Microsoft.AspNetCore.Mvc;
 

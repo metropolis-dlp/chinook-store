@@ -1,4 +1,4 @@
-using ChinookStore.Application.Tracks.Queries;
+using ChinookStore.Application.Features.Tracks.Queries;
 using ChinookStore.Web.Common;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,6 +1,6 @@
 using System.Reflection;
-using ChinookStore.Application._Common.Behaviours;
-using ChinookStore.Application._Common.Mappings;
+using ChinookStore.Application.Common.Behaviours;
+using ChinookStore.Application.Common.Mappings;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

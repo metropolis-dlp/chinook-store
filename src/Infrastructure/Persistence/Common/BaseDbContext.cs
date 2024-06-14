@@ -1,6 +1,5 @@
 using System.Data;
-using System.Linq.Expressions;
-using ChinookStore.Application._Common.Interfaces;
+using ChinookStore.Application.Common.Interfaces;
 using ChinookStore.Domain.Common;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +29,13 @@ public abstract class BaseDbContext(DbContextOptions options, IMediator mediator
         where T : DomainEntity
     {
         Remove(entity);
+    }
+
+    public async Task<IEnumerable<TEnumeration>> EnumerateAsync<TEnumeration>(
+        CancellationToken cancellationToken = default)
+        where TEnumeration : Enumeration
+    {
+        return await Set<TEnumeration>().ToListAsync(cancellationToken);
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
