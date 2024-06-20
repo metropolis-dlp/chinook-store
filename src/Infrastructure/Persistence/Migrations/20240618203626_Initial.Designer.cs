@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChinookStore.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240610210722_Initial")]
+    [Migration("20240618203626_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
