@@ -41,8 +41,7 @@ import {CurrencyPipe} from "@angular/common";
     DurationPipe,
     CurrencyPipe
   ],
-  templateUrl: './track-list.component.html',
-  styleUrl: './track-list.component.scss'
+  templateUrl: './track-list.component.html'
 })
 export class TrackListComponent extends BaseComponent implements OnInit, OnChanges {
   @Input() albumId!: number;

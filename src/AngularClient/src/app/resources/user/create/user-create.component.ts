@@ -13,8 +13,7 @@ import {AddressBoxComponent} from "../../../common/components/address-box/addres
     ReactiveFormsModule,
     AddressBoxComponent
   ],
-  templateUrl: './user-create.component.html',
-  styleUrl: './user-create.component.scss'
+  templateUrl: './user-create.component.html'
 })
 export class UserCreateComponent {
   form = new FormGroup({

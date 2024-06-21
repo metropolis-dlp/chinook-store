@@ -28,8 +28,7 @@ import {PaginationRequestModel} from "../../../common/model/pagination-request.m
     MatPaginatorModule,
     MatSortModule
   ],
-  templateUrl: './artist-list.component.html',
-  styleUrl: './artist-list.component.scss'
+  templateUrl: './artist-list.component.html'
 })
 export class ArtistListComponent extends BaseComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;

@@ -7,8 +7,8 @@
 
 <mat-sidenav-container autosize>
 
-  <mat-sidenav #sidenav mode="side">
-    <mat-nav-list>
+  <mat-sidenav #sidenav mode="over">
+    <mat-nav-list (click)="sidenav.close();">
       <a routerLink="/" mat-list-item>
         <div class="d-flex flex-items-center flex-gap">
           <mat-icon>home</mat-icon>

@@ -25,8 +25,7 @@ import {ArtistModel} from "../artist.model";
     MatButtonModule,
     MatDialogClose
   ],
-  templateUrl: './artist-create-edit.component.html',
-  styleUrl: './artist-create-edit.component.scss'
+  templateUrl: './artist-create-edit.component.html'
 })
 export class ArtistCreateEditComponent extends BaseComponent implements OnInit {
   form = new FormGroup({

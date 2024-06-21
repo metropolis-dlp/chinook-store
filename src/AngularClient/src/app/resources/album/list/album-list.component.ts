@@ -52,8 +52,7 @@ import {MatDialog} from "@angular/material/dialog";
     DatePipe,
     RouterLink
   ],
-  templateUrl: './album-list.component.html',
-  styleUrl: './album-list.component.scss'
+  templateUrl: './album-list.component.html'
 })
 export class AlbumListComponent extends BaseComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;

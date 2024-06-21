@@ -47,8 +47,7 @@ import {BasicItemModel} from "../../../common/model/basic-item.model";
       useExisting: TrackFormComponent
     }
   ],
-  templateUrl: './track-form.component.html',
-  styleUrl: './track-form.component.scss'
+  templateUrl: './track-form.component.html'
 })
 export class TrackFormComponent extends ReactiveBaseComponent<TrackModel> implements OnInit, Validator {
   mediaTypes: BasicItemModel[] = [];

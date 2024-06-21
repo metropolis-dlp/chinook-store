@@ -48,8 +48,7 @@ import {AlbumModel} from "../album.model";
       useExisting: AlbumFormComponent
     }
   ],
-  templateUrl: './album-form.component.html',
-  styleUrl: './album-form.component.scss'
+  templateUrl: './album-form.component.html'
 })
 export class AlbumFormComponent extends ReactiveBaseComponent<AlbumModel> implements OnInit, Validator {
   artists: ArtistModel[] = [];
