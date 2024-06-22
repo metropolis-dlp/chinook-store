@@ -11,5 +11,5 @@ import {NavMenuComponent} from "./common/components/nav-menu/nav-menu.component"
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'chinook';
+  title = 'Chinook Store';
 }

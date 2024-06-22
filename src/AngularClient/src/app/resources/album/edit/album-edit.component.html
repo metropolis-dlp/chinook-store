@@ -1,17 +1,17 @@
-<div class="d-flex flex-justify-center">
-  <mat-card class="mw-md">
-    <mat-card-header>
-      <mat-card-title>Update Album</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="pt-1">
-      <album-form [formControl]="form"></album-form>
-      @if (id) {
-        <track-list [albumId]="id"></track-list>
-      }
-    </mat-card-content>
-    <mat-card-actions class="d-flex flex-gap">
+<div class="d-flex flex-justify-center mw-md">
+  <div>
+    <h5>Edit Album</h5>
+
+    <album-form [formControl]="form"></album-form>
+
+    <div class="d-flex flex-justify-end flex-gap">
       <button mat-flat-button (click)="submit()" [disabled]="!form.valid">Update</button>
       <button mat-raised-button [routerLink]="['../../list']">Cancel</button>
-    </mat-card-actions>
-  </mat-card>
+    </div>
+
+    @if (id) {
+      <h6>Tracks</h6>
+      <track-list [albumId]="id"></track-list>
+    }
+  </div>
 </div>

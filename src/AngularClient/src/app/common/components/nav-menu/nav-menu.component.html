@@ -2,7 +2,11 @@
   <button mat-icon-button matTooltip="Menu" aria-label="Menu" (click)="sidenav.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Chinook Store</span>
+  <span>Chinook Store
+    @if (routeTitle) {
+      - {{ routeTitle }}
+    }
+  </span>
 </mat-toolbar>
 
 <mat-sidenav-container autosize>

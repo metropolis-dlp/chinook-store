@@ -1,14 +1,12 @@
 <div class="d-flex flex-justify-center">
-  <mat-card class="mw-md">
-    <mat-card-header>
-      <mat-card-title>Create Album</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="pt-1">
-      <album-form [formControl]="form"></album-form>
-    </mat-card-content>
-    <mat-card-actions class="d-flex flex-gap">
+  <div class="mw-md">
+    <h5>Create Album</h5>
+
+    <album-form [formControl]="form"></album-form>
+
+    <div class="d-flex flex-justify-end flex-gap">
       <button mat-flat-button (click)="submit()" [disabled]="!form.valid">Create</button>
       <button mat-raised-button [routerLink]="['../list']">Cancel</button>
-    </mat-card-actions>
-  </mat-card>
+    </div>
+  </div>
 </div>

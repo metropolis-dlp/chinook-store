@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AlbumFormComponent} from "../form/album-form.component";
 import {MatButton} from "@angular/material/button";
-import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {FormControl, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AlbumModel} from "../album.model";
@@ -16,11 +15,6 @@ import {TrackListComponent} from "../../track/list/track-list.component";
   imports: [
     AlbumFormComponent,
     MatButton,
-    MatCard,
-    MatCardActions,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
     RouterLink,
     ReactiveFormsModule,
     TrackListComponent
