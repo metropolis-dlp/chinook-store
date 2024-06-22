@@ -14,7 +14,7 @@ public interface IRepository
     void Delete<TEntity>(TEntity entity)
         where TEntity : DomainEntity;
 
-    Task<IEnumerable<TEnumeration>> EnumerateAsync<TEnumeration>(CancellationToken cancellationToken)
+    Task<IDictionary<int, TEnumeration>> EnumerateAsync<TEnumeration>(CancellationToken cancellationToken)
         where TEnumeration : Enumeration;
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);

@@ -1,4 +1,7 @@
 export interface TrackModel {
+  id: number;
+  albumId: number;
+
   number: number;
   name: string,
   composer: string,

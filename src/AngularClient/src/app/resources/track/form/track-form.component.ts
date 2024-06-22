@@ -15,12 +15,13 @@ import {
 } from "@angular/forms";
 import {ReactiveBaseComponent} from "../../../common/components/reactive-base.component";
 import {TrackModel} from "../track.model";
-import {forkJoin, takeUntil, tap} from "rxjs";
+import {takeUntil, tap} from "rxjs";
 import {MediaTypeService} from "../../media-type/media-type.service";
 import {BasicItemModel} from "../../../common/model/basic-item.model";
+import {Duration} from "luxon";
 
 @Component({
-  selector: 'app-track-form',
+  selector: 'track-form',
   standalone: true,
   imports: [
       ComboBoxComponent,
@@ -53,11 +54,11 @@ export class TrackFormComponent extends ReactiveBaseComponent<TrackModel> implem
   mediaTypes: BasicItemModel[] = [];
 
   form = new FormGroup({
-    id: new FormControl<number | null>(null),
+    id: new FormControl<number>(0),
     number: new FormControl<number>(0, Validators.required),
     name: new FormControl<string>('', Validators.required),
     composer: new FormControl<string>('', Validators.required),
-    milliseconds: new FormControl<number>(0, Validators.required),
+    length: new FormControl<string>('', Validators.required),
     unitPrice: new FormControl<number>(0, Validators.required),
     mediaTypeId: new FormControl<number>(0, Validators.required)
   });
@@ -78,7 +79,15 @@ export class TrackFormComponent extends ReactiveBaseComponent<TrackModel> implem
   }
 
   get value(): TrackModel {
-    return this.form.value as TrackModel;
+    const result = this.form.value as TrackModel;
+    result.milliseconds = Duration.fromISOTime(this.form.value.length ?? '00:00:00').toMillis();
+    return result;
+  }
+  override set value(value: TrackModel) {
+    this.form.patchValue(value);
+    this.form.patchValue({
+      length: Duration.fromMillis(value.milliseconds).toFormat("hh':'mm':'ss")
+    })
   }
 
   validate(_: AbstractControl): ValidationErrors | null {

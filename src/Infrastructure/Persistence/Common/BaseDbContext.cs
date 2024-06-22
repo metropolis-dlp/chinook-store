@@ -31,11 +31,11 @@ public abstract class BaseDbContext(DbContextOptions options, IMediator mediator
         Remove(entity);
     }
 
-    public async Task<IEnumerable<TEnumeration>> EnumerateAsync<TEnumeration>(
+    public async Task<IDictionary<int, TEnumeration>> EnumerateAsync<TEnumeration>(
         CancellationToken cancellationToken = default)
         where TEnumeration : Enumeration
     {
-        return await Set<TEnumeration>().ToListAsync(cancellationToken);
+        return await Set<TEnumeration>().ToDictionaryAsync(k => k.Id, cancellationToken);
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

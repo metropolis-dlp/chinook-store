@@ -1,7 +1,7 @@
 <div [formGroup]="form" class="d-flex flex-column">
   <mat-form-field>
     <mat-label>Number</mat-label>
-    <input matInput type="number" formControlName="number">
+    <input matInput type="number" min="1" formControlName="number">
   </mat-form-field>
 
   <mat-form-field>
@@ -16,17 +16,17 @@
 
   <mat-form-field>
     <mat-label>Length</mat-label>
-    <input matInput type="time" formControlName="milliseconds">
+    <input matInput type="time" step="1" formControlName="length">
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Price</mat-label>
-    <input matInput type="number" formControlName="unitPrice">
+    <input matInput type="number" min="0" formControlName="unitPrice">
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Media Type</mat-label>
-    <combo-box formControlName="mediaType" [options]="mediaTypes"></combo-box>
+    <combo-box formControlName="mediaTypeId" [options]="mediaTypes"></combo-box>
   </mat-form-field>
 
 </div>

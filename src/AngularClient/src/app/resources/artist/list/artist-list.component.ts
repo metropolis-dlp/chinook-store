@@ -102,6 +102,6 @@ export class ArtistListComponent extends BaseComponent implements AfterViewInit 
     }).afterClosed().pipe(
       switchMap(result => iif(() => result == true, this.artistService.delete(id), EMPTY)),
       tap(() => this.paginator.page.emit(new PageEvent()))
-    ).subscribe()
+    ).subscribe();
   }
 }

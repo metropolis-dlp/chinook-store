@@ -19,6 +19,6 @@ public class GetAllMediaTypesQueryHandler(IRepository repository, IMapper mapper
     public async Task<MediaTypeListItemDto[]> Handle(GetAllMediaTypesQuery request, CancellationToken cancellationToken)
     {
         var mediaTypes = await repository.EnumerateAsync<MediaType>(cancellationToken);
-        return mapper.Map<MediaTypeListItemDto[]>(mediaTypes);
+        return mapper.Map<MediaTypeListItemDto[]>(mediaTypes.Values);
     }
 }
