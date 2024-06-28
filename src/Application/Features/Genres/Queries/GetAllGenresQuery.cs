@@ -19,6 +19,7 @@ public class GetAllGenresQueryHandler(IMapper mapper, IRepository context)
     public async Task<GenresListItemDto[]> Handle(GetAllGenresQuery request, CancellationToken cancellationToken)
     {
         return await context.Query<Genre>()
+            .OrderBy(g => g.Name)
             .ProjectTo<GenresListItemDto>(mapper.ConfigurationProvider)
             .ToArrayAsync(cancellationToken);
     }

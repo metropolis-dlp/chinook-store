@@ -1,0 +1,90 @@
+<h2 mat-dialog-title>Genres</h2>
+
+<mat-dialog-content class="container">
+
+  <mat-radio-group
+    aria-labelledby="example-radio-group-label"
+    class="example-radio-group"
+    [(ngModel)]="selected">
+  <table mat-table [dataSource]="elements">
+
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        @if (!creating) { Select }
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-radio-button [value]="row.id"></mat-radio-button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>
+        @if (creating) {
+          <mat-form-field class="mt-2">
+            <input matInput [(ngModel)]="editingValue">
+          </mat-form-field>
+        } @else {
+          Name
+        }
+      </th>
+      <td mat-cell *matCellDef="let element">
+        @if (editing == element.id) {
+          <mat-form-field class="mt-2">
+            <input matInput [(ngModel)]="editingValue">
+          </mat-form-field>
+        } @else {
+          {{ element.name }}
+        }
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef>
+        <div class="d-flex flex-justify-center">
+          @if (creating) {
+            <button mat-icon-button (click)="create()">
+              <mat-icon color="primary">check_circle</mat-icon>
+            </button>
+            <button mat-icon-button (click)="cancelCreate()">
+              <mat-icon color="warn">cancel</mat-icon>
+            </button>
+          } @else if (!editing) {
+            <button mat-icon-button (click)="startCreate()">
+              <mat-icon color="primary">library_add</mat-icon>
+            </button>
+          }
+        </div>
+      </th>
+
+      <td mat-cell *matCellDef="let row">
+        <div class="d-flex flex-justify-center">
+          @if (editing == row.id) {
+            <button mat-icon-button (click)="update(row.id)">
+                <mat-icon color="primary">check_circle</mat-icon>
+            </button>
+            <button mat-icon-button (click)="cancelEdit()">
+              <mat-icon color="warn">cancel
+              </mat-icon>
+            </button>
+          } @else if (!editing && !creating) {
+            <button mat-icon-button (click)="startEdit(row.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="delete(row.id)">
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+          }
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  </mat-radio-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button cdkFocusInitial (click)="select()">Select</button>
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+</mat-dialog-actions>

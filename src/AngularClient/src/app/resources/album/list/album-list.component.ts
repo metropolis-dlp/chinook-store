@@ -103,6 +103,6 @@ export class AlbumListComponent extends BaseComponent implements AfterViewInit {
     }).afterClosed().pipe(
       switchMap(result => iif(() => result == true, this.albumService.delete(id), EMPTY)),
       tap(() => this.paginator.page.emit(new PageEvent()))
-    ).subscribe()
+    ).subscribe();
   }
 }

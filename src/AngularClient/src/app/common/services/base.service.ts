@@ -27,7 +27,7 @@ export abstract class BaseService<T> {
   }
 
   create(model: T) {
-    return this.client.post(this.baseUri, model);
+    return this.client.post<number>(this.baseUri, model);
   }
 
   modify(id: number, model: T) {

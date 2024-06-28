@@ -23,8 +23,8 @@ public class GenresController : ApiControllerBase
     [HttpPost]
     public async Task<ActionResult> CreateAsync(CreateGenreCommand command)
     {
-        await Sender.Send(command);
-        return NoContent();
+        var id = await Sender.Send(command);
+        return CreatedAtAction("Get", id);
     }
 
     [HttpPut("{id:int}")]

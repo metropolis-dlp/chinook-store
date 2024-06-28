@@ -20,6 +20,7 @@ import {GenreService} from "../../genre/genre.service";
 import {forkJoin, takeUntil, tap} from "rxjs";
 import {ReactiveBaseComponent} from "../../../common/components/reactive-base.component";
 import {AlbumModel} from "../album.model";
+import {GenreSelectorComponent} from "../../genre/selector/genre-selector.component";
 
 @Component({
   selector: 'album-form',
@@ -34,7 +35,8 @@ import {AlbumModel} from "../album.model";
     MatInput,
     MatDatepickerToggle,
     MatDatepicker,
-    MatFormFieldModule
+    MatFormFieldModule,
+    GenreSelectorComponent
   ],
   providers: [
     {

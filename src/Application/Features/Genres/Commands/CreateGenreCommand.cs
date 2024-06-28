@@ -4,13 +4,15 @@ using MediatR;
 
 namespace ChinookStore.Application.Features.Genres.Commands;
 
-public record CreateGenreCommand(string Name) : IRequest;
+public record CreateGenreCommand(string Name) : IRequest<int>;
 
-public class CreateGenreCommandHandler(IRepository context) : IRequestHandler<CreateGenreCommand>
+public class CreateGenreCommandHandler(IRepository context) : IRequestHandler<CreateGenreCommand, int>
 {
-    public async Task Handle(CreateGenreCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
     {
-        context.Insert(new Genre(request.Name));
+        var created = context.Insert(new Genre(request.Name));
         await context.SaveChangesAsync(cancellationToken);
+
+        return created.Id;
     }
 }
