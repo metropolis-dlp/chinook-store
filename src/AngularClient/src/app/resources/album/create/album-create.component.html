@@ -1,12 +1,9 @@
-<div class="d-flex flex-justify-center">
-  <div class="mw-md">
-    <h5>Create Album</h5>
+<h5>Create Album</h5>
 
-    <album-form [formControl]="form"></album-form>
+<album-form [formControl]="form"></album-form>
 
-    <div class="d-flex flex-justify-end flex-gap">
-      <button mat-flat-button (click)="submit()" [disabled]="!form.valid">Create</button>
-      <button mat-raised-button [routerLink]="['../list']">Cancel</button>
-    </div>
-  </div>
+<div class="d-flex flex-justify-end flex-gap">
+  <button mat-flat-button (click)="submit()" [disabled]="!form.valid">Create</button>
+  <button mat-raised-button [routerLink]="['../list']">Cancel</button>
 </div>
+

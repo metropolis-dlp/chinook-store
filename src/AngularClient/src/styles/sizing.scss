@@ -2,14 +2,6 @@
 @use 'sass:map';
 @use 'sass:meta';
 
-$breakpoints: (
-  'sm':  ( min-width: 540px ),
-  'md':  ( min-width: 720px ),
-  'lg':  ( min-width: 960px ),
-  'xl':  ( min-width: 1140px ),
-  'xxl': ( min-width: 1320px ),
-);
-
 @mixin generate_sizing($prefix, $property) {
   $sizes: [25, 50, 75, 100];
   $percent: 1%;
@@ -28,10 +20,3 @@ $breakpoints: (
 @include generate_sizing(w, width);
 @include generate_sizing(h, height);
 
-@each $breakpoint, $min-width in $breakpoints {
-  .mw-#{$breakpoint} {
-    @media #{meta.inspect(map.get($breakpoints, $breakpoint))} {
-      min-width: map.get($min-width, 'min-width');
-    }
-  }
-}

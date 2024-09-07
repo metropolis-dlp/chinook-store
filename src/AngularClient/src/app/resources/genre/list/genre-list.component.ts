@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {CurrencyPipe} from "@angular/common";
 import {DurationPipe} from "../../../common/pipes/duration.pipe";
 import {
@@ -26,12 +26,12 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
-import {ShimReferenceTagger} from "@angular/compiler-cli/src/ngtsc/shims";
 import {GenreService} from "../genre.service";
 import {ConfirmDialogComponent} from "../../../common/components/confirm-dialog/confirm-dialog.component";
 import {ConfirmDialogModel} from "../../../common/components/confirm-dialog/confirm-dialog.model";
-import {EMPTY, iif, switchMap, tap} from "rxjs";
-import {PageEvent} from "@angular/material/paginator";
+import {EMPTY, iif, switchMap, takeUntil} from "rxjs";
+import {BaseComponent} from "../../../common/components/base.component";
+import { A11yModule } from '@angular/cdk/a11y'
 
 @Component({
   selector: 'genre-list',
@@ -64,13 +64,16 @@ import {PageEvent} from "@angular/material/paginator";
     ReactiveFormsModule,
     MatFormField,
     MatInput,
-    MatLabel
+    MatLabel,
+    A11yModule
   ],
   templateUrl: './genre-list.component.html',
   styleUrl: './genre-list.component.scss'
 })
-export class GenreListComponent implements OnInit {
+export class GenreListComponent extends BaseComponent implements OnInit, AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<BasicItemModel>;
+  @ViewChildren(MatRow, {read: ElementRef}) rows!: QueryList<ElementRef<HTMLTableRowElement>>;
+
   displayedColumns: string[] = [ 'select', 'name', 'options' ];
 
   elements: BasicItemModel[] = [];
@@ -86,6 +89,21 @@ export class GenreListComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { genres: BasicItemModel[], selected: number | null },
     private genreService: GenreService
   ) {
+    super();
+  }
+
+  ngAfterViewInit(): void {
+    this.moveToSelected(this.rows);
+
+    this.rows.changes
+      .pipe(takeUntil(this.unsubscriptionNotifier))
+      .subscribe(rows => this.moveToSelected(rows));
+  }
+
+  private moveToSelected(rows: QueryList<ElementRef<HTMLTableRowElement>>) {
+    const nativeSelRow =
+      rows.find(row => row.nativeElement.id === this.selected?.toString());
+    nativeSelRow?.nativeElement.scrollIntoView({block: 'center', behavior: 'smooth'});
   }
 
   ngOnInit() {
@@ -108,13 +126,15 @@ export class GenreListComponent implements OnInit {
     this.genreService
       .create({  name: this.editingValue } as BasicItemModel)
       .subscribe(id => {
-        this.elements.unshift({
+        this.elements.push({
           id: id,
           name: this.editingValue
         } as BasicItemModel);
+        this.elements.sort((a,b) => a.name.localeCompare(b.name));
 
         this.creating = false;
         this.editingValue = null;
+        this.selected = id;
 
         this.table.renderRows();
       });
@@ -136,9 +156,11 @@ export class GenreListComponent implements OnInit {
         if (element) {
           element.name = this.editingValue ?? '';
         }
+        this.elements.sort((a,b) => a.name.localeCompare(b.name));
 
         this.editing = null;
         this.editingValue = null;
+        this.selected = id;
 
         this.table.renderRows();
       });
@@ -157,9 +179,12 @@ export class GenreListComponent implements OnInit {
       const index = this.elements.findIndex(g => g.id == id);
       if (index >= 0) {
         this.elements.splice(index, 1);
-        this.table.renderRows();
+        if (this.selected === id) {
+          this.selected = null;
+        }
       }
+
+      this.table.renderRows();
     });
   }
-
 }
