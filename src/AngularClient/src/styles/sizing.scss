@@ -2,6 +2,14 @@
 @use 'sass:map';
 @use 'sass:meta';
 
+$breakpoints: (
+  'xs': ( max-width: 600px ),
+  'sm': ( min-width: 600px, max-width: 959.98px ),
+  'md': ( min-width: 960px, max-width: 1279.98px ),
+  'lg': ( min-width: 1280px, max-width: 1919.98px ),
+  'xl': ( min-width: 1920px )
+);
+
 @mixin generate_sizing($prefix, $property) {
   $sizes: [25, 50, 75, 100];
   $percent: 1%;
@@ -20,3 +28,8 @@
 @include generate_sizing(w, width);
 @include generate_sizing(h, height);
 
+@each $breakpoint, $min-width in $breakpoints {
+  .mw-#{$breakpoint} {
+      max-width: map.get($min-width, 'min-width');
+  }
+}

@@ -1,13 +1,19 @@
-<h5>Edit Album</h5>
+<div class="d-flex flex-justify-center">
+  <div class="d-flex flex-column flex-grow mw-md">
 
-<album-form [formControl]="form"></album-form>
+    <h5>Edit Album</h5>
 
-<div class="d-flex flex-justify-end flex-gap">
-  <button mat-flat-button (click)="submit()" [disabled]="!form.valid">Update</button>
-  <button mat-raised-button [routerLink]="['../../list']">Cancel</button>
+    <album-form [formControl]="form"></album-form>
+
+    <div class="d-flex flex-justify-end flex-gap">
+      <button mat-flat-button (click)="submit()" [disabled]="!form.valid">Update</button>
+      <button mat-raised-button [routerLink]="['../../list']">Cancel</button>
+    </div>
+
+    @if (id) {
+      <h6>Tracks</h6>
+      <track-list [albumId]="id"></track-list>
+    }
+
+  </div>
 </div>
-
-@if (id) {
-  <h6>Tracks</h6>
-  <track-list [albumId]="id"></track-list>
-}

@@ -11,7 +11,7 @@
 
 <mat-sidenav-container autosize>
 
-  <mat-sidenav #sidenav mode="over">
+  <mat-sidenav #sidenav mode="over" [autoFocus]="false">
     <mat-nav-list (click)="sidenav.close();">
       <a routerLink="/" mat-list-item>
         <div class="d-flex flex-items-center flex-gap">
@@ -34,6 +34,7 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  <ng-content></ng-content>
-
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
 </mat-sidenav-container>
